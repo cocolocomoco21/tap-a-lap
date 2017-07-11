@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tap A Lap</string>
+
+    <string name="initial_lap_text">0</string>
+    <string name="completed_text">Completed</string>
+    <string name="laps_text">Laps</string>
+    <string name="decrease_button_text">-</string>
+    <string name="reset_button_text">Reset</string>
+</resources>
