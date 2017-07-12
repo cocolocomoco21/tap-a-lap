@@ -6,4 +6,7 @@
     <string name="laps_text">Laps</string>
     <string name="decrease_button_text">-</string>
     <string name="reset_button_text">Reset</string>
+
+    <string name="settings_options_test">Settings</string>
+    <string name="help_options_test">Help</string>
 </resources>
