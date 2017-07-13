@@ -1,9 +1,12 @@
 package com.cocolocomoco.tapalap;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,7 +81,12 @@ public class LapCountActivity extends AppCompatActivity {
 	}
 
 	private void showHelp() {
-		// Do things here to show help
-		// TODO
+		// Display help dialog popup
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.help_dialog_title)
+				.setMessage(R.string.help_dialog_message);
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }

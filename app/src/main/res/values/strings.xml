@@ -1,12 +1,34 @@
-<resources>
-    <string name="app_name">Tap A Lap</string>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY appName "Tap A Lap">
+    <!ENTITY author "Matt Henricks">
+    ]>
 
+<resources>
+    <string name="app_name">&appName;</string>
+
+    <!--Main page-->
     <string name="initial_lap_text">0</string>
     <string name="completed_text">Completed</string>
     <string name="laps_text">Laps</string>
     <string name="decrease_button_text">-</string>
     <string name="reset_button_text">Reset</string>
 
-    <string name="settings_options_test">Settings</string>
-    <string name="help_options_test">Help</string>
+    <!--Options menu-->
+    <string name="settings_option">Settings</string>
+    <string name="help_option">Help</string>
+
+    <!--Help dialog popup-->
+    <string name="help_dialog_title">How to use &appName;:</string>
+    <string name="help_dialog_message">
+        \nSimply tap the screen to count laps!\n
+        \nSubtract laps with \'-\' (if you accidentally add too many laps).\n
+        \nReset your count with \'Reset\'.\n
+        \n
+        \nHappy lapping!\n
+    </string>
+
+    <!--Settings page-->
+    <string name="enable_lap_timing_setting_title">Enable lap timing</string>
+    <string name="enable_lap_timing_setting_summary">Enable dynamic lap time display on the while tapping</string>
 </resources>

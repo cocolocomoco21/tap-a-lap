@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/settings"
-          android:title="@string/settings_options_test"
+          android:title="@string/settings_option"
           android:showAsAction="ifRoom"/>
     <item android:id="@+id/help"
-          android:title="@string/help_options_test"/>
+          android:title="@string/help_option"/>
 </menu>
