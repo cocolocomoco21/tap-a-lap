@@ -1,12 +1,9 @@
 package com.cocolocomoco.tapalap;
 
-import android.app.DialogFragment;
 import android.content.Intent;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,25 +13,53 @@ import android.widget.TextView;
 
 public class LapCountActivity extends AppCompatActivity {
 
-	int lapCount = 0;
-
+	private int lapCount = 0;
+	//private GestureDetectorCompat gestureDetector;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lap_count);
+
+		//this.gestureDetector = new GestureDetectorCompat(this, new MyGestureListener(this));
 	}
+
+	/*
+	class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+		Context context;
+
+		public MyGestureListener(Context context) {
+			this.context = context;
+		}
+
+		@Override
+		public boolean onDown(MotionEvent event) {
+			Log.d("test", "down performed");
+			return true;
+		}
+
+		@Override
+		public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+			Log.d("test", "Left to Right swipe performed");
+			return true;
+		}
+	}
+	*/
 
 	@Override
 	public boolean onTouchEvent(MotionEvent motionEvent) {
-		if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-			this.lapCount++;
+		switch (motionEvent.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				this.lapCount++;
+				break;
 		}
 
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
 
 		return true;
+		//return super.onTouchEvent(motionEvent);
 	}
 
 	public void onDecreaseClick(View view) {
@@ -64,16 +89,25 @@ public class LapCountActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
-			case R.id.settings:
+			case R.id.settings: {
 				// Intent to start SettingsActivity
 				Intent intent = new Intent(this, SettingsActivity.class);
 				startActivity(intent);
 				break;
-			case R.id.help:
+			}
+			case R.id.help: {
 				showHelp();
 				break;
-			default:
+			}
+			case R.id.stats: {
+				// Intent to start SettingsActivity
+				Intent intent = new Intent(this, StatsActivity.class);
+				startActivity(intent);
 				break;
+			}
+			default: {
+				break;
+			}
 		}
 
 		// TODO better here?

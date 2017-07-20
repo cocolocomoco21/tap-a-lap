@@ -16,6 +16,7 @@
 
     <!--Options menu-->
     <string name="settings_option">Settings</string>
+    <string name="stats_option">Stats</string>
     <string name="help_option">Help</string>
 
     <!--Help dialog popup-->
@@ -31,4 +32,9 @@
     <!--Settings page-->
     <string name="enable_lap_timing_setting_title">Enable lap timing</string>
     <string name="enable_lap_timing_setting_summary">Enable dynamic lap time display on the while tapping</string>
+
+    <!--Stats page-->
+    <string name="input_laps_per_mile_landing">Specify laps/mile to see Stats</string>
+    <string name="input_laps_per_mile_button">Input laps/mile</string>
+
 </resources>
