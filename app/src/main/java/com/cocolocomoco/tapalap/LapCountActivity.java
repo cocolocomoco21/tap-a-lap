@@ -20,59 +20,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LapCountActivity extends AppCompatActivity {
+	private final int NUM_PAGES = 2;
 
 	private int lapCount = 0;
-
 	private ViewPager viewPager;
-	private LapPagerAdapter pagerAdapter;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lap_count);
 
-		//getSupportFragmentManager().beginTransaction()
-		//		.add(R.id.pager, new LapCountFragment()).commit();
+		LapPagerAdapter pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
+		pagerAdapter.addFragment(new LapCountFragment());
+		pagerAdapter.addFragment(new StatsFragment());
 
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
-		this.pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
-
-		this.pagerAdapter.addFragment(new LapCountFragment());
-		this.pagerAdapter.addFragment(new StatsFragment());
-
-		this.viewPager.setAdapter(this.pagerAdapter);
-
-
-		//this.viewPager.setOnTouchListener();
+		this.viewPager.setAdapter(pagerAdapter);
 	}
 
-	class LapPagerAdapter extends FragmentPagerAdapter {
+	/**
+	 * LapPagerAdapter class used for handling paging of Fragments in the ViewPager.
+	 */
+	private class LapPagerAdapter extends FragmentPagerAdapter {
 		private List<Fragment> fragments = new ArrayList<Fragment>();
 
-
-		public LapPagerAdapter(FragmentManager fm) {
+		private LapPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
 
-		public void addFragment(Fragment fragment) {
+		private void addFragment(Fragment fragment) {
 			this.fragments.add(fragment);
 			notifyDataSetChanged();
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-//			if (position == 0) {
-//				return new LapCountFragment();
-//			} else {
-//				return new StatsFragment();
-//			}
-
 			return this.fragments.get(position);
 		}
 
 		@Override
 		public int getCount() {
-			return 2;
+			return NUM_PAGES;
 		}
 	}
 
