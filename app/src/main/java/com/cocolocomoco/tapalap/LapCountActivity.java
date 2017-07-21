@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LapCountActivity extends AppCompatActivity {
+public class LapCountActivity extends AppCompatActivity implements LapCountFragment.OnLapCountChangeListener{
 	private final int NUM_PAGES = 2;
 
 	private int lapCount = 0;
@@ -28,7 +28,7 @@ public class LapCountActivity extends AppCompatActivity {
 
 	private LapCountFragment lapCountFragment;
 	private StatsFragment statsFragment;
-	//private LapCountFragment.OnLapCountChangeListener lapCountChangeListener;
+	private LapCountFragment.OnLapCountChangeListener lapCountChangeListener;
 
 
 	@Override
@@ -46,6 +46,21 @@ public class LapCountActivity extends AppCompatActivity {
 
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);
+	}
+
+	@Override
+	public void onIncreaseClick(View view) {
+		this.lapCountFragment.onIncreaseClick(view);
+	}
+
+	@Override
+	public void onDecreaseClick(View view) {
+		this.lapCountFragment.onDecreaseClick(view);
+	}
+
+	@Override
+	public void onResetClick(View view) {
+		this.lapCountFragment.onResetClick(view);
 	}
 
 	/**
@@ -86,21 +101,7 @@ public class LapCountActivity extends AppCompatActivity {
 		}
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent motionEvent) {
-		switch (motionEvent.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				this.lapCount++;
-				break;
-		}
-
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(this.lapCount));
-
-		return true;
-		//return super.onTouchEvent(motionEvent);
-	}
-
+	/*
 	public void increaseLapCount() {
 		this.lapCount++;
 
@@ -127,6 +128,7 @@ public class LapCountActivity extends AppCompatActivity {
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
 	}
+	*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

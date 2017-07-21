@@ -22,19 +22,17 @@ import android.widget.TextView;
 public class LapCountFragment extends Fragment {
 	private int lapCount = 0;
 	public static String LAP_COUNT_FRAGMENT_KEY = "lap_count_fragment_key";
-	//private OnLapCountChangeListener lapCountChangeListener;
+	private OnLapCountChangeListener lapCountChangeListener;
 
 	public LapCountFragment() {
 		// Required empty public constructor
 	}
 
-	/*
 	public interface OnLapCountChangeListener {
 		public void onIncreaseClick(View view);
 		public void onDecreaseClick(View view);
 		public void onResetClick(View view);
 	}
-	*/
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,20 +40,18 @@ public class LapCountFragment extends Fragment {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_lap_count, container, false);
 
-		view.setOnTouchListener((v, event) -> {
-			//public boolean onTouch(View v, MotionEvent event) {
-				int ff = event.getAction();
-				if (event.getAction() == MotionEvent.ACTION_UP) {
-					LapCountActivity activity = (LapCountActivity) this.getActivity();
-					activity.increaseLapCount();
+		view.setOnTouchListener((v, motionEvent) -> {
+			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+				//LapCountActivity activity = (LapCountActivity) this.getActivity();
+				//activity.increaseLapCount();
 
-					return true;
-				}
+				this.onIncreaseClick(view);
 				return true;
 			}
-		);
+			return true;
+		});
 
-		//this.lapCountChangeListener = (OnLapCountChangeListener) getActivity();
+		this.lapCountChangeListener = (OnLapCountChangeListener) getActivity();
 
 		return view;
 	}
@@ -65,41 +61,32 @@ public class LapCountFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 	}
 
-/*
-	@Override
-	public boolean onTouchEvent(MotionEvent motionEvent) {
-		switch (motionEvent.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				this.lapCount++;
-				break;
-		}
+	public void onIncreaseClick(View view) {
+		this.lapCount++;
 
-		TextView textView = (TextView) findViewById(R.id.lapCountDisplay);
+		TextView textView = (TextView) this.getView().findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
-
-		return true;
-		//return super.onTouchEvent(motionEvent);
 	}
 
 	public void onDecreaseClick(View view) {
-		LapCountActivity activity = (LapCountActivity) this.getActivity();
-		int lapCount = activity.getLapCount();
-		if (lapCount == 0) {
+		if (this.lapCount == 0) {
 			return;
 		}
 
 		//TextView textView = (TextView)getView().findViewById(R.id.lapCountDisplay);
-		TextView textView = (TextView) view;
-		textView.setText(String.valueOf(lapCount));
+		TextView textView = (TextView) this.getView().findViewById(R.id.lapCountDisplay);
+		textView.setText(String.valueOf(--this.lapCount));
 	}
 
 	public void onResetClick(View view) {
 		this.lapCount = 0;
 
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
+		//TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
+		TextView textView = (TextView) this.getView().findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
 	}
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
