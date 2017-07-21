@@ -22,7 +22,6 @@ import java.util.List;
 public class LapCountActivity extends AppCompatActivity {
 
 	private int lapCount = 0;
-	//private GestureDetectorCompat gestureDetector;
 
 	private ViewPager viewPager;
 	private LapPagerAdapter pagerAdapter;
@@ -31,7 +30,6 @@ public class LapCountActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lap_count);
-		//this.gestureDetector = new GestureDetectorCompat(this, new MyGestureListener(this));
 
 		//getSupportFragmentManager().beginTransaction()
 		//		.add(R.id.pager, new LapCountFragment()).commit();
@@ -77,29 +75,6 @@ public class LapCountActivity extends AppCompatActivity {
 			return 2;
 		}
 	}
-
-	/*
-	class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-		Context context;
-
-		public MyGestureListener(Context context) {
-			this.context = context;
-		}
-
-		@Override
-		public boolean onDown(MotionEvent event) {
-			Log.d("test", "down performed");
-			return true;
-		}
-
-		@Override
-		public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-			Log.d("test", "Left to Right swipe performed");
-			return true;
-		}
-	}
-	*/
 
 	@Override
 	public void onBackPressed() {
