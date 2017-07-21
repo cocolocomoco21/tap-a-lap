@@ -1,52 +1,39 @@
 package com.cocolocomoco.tapalap;
 
+
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class LapCountActivity extends AppCompatActivity {
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class LapCountFragment extends Fragment {
 	private int lapCount = 0;
-	//private GestureDetectorCompat gestureDetector;
+
+	public LapCountFragment() {
+		// Required empty public constructor
+	}
+
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_lap_count);
-
-		//this.gestureDetector = new GestureDetectorCompat(this, new MyGestureListener(this));
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_lap_count, container, false);
 	}
 
-	/*
-	class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-		Context context;
-
-		public MyGestureListener(Context context) {
-			this.context = context;
-		}
-
-		@Override
-		public boolean onDown(MotionEvent event) {
-			Log.d("test", "down performed");
-			return true;
-		}
-
-		@Override
-		public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-			Log.d("test", "Left to Right swipe performed");
-			return true;
-		}
-	}
-	*/
-
+/*
 	@Override
 	public boolean onTouchEvent(MotionEvent motionEvent) {
 		switch (motionEvent.getAction()) {
@@ -55,7 +42,7 @@ public class LapCountActivity extends AppCompatActivity {
 				break;
 		}
 
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
+		TextView textView = (TextView) findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
 
 		return true;
@@ -123,4 +110,5 @@ public class LapCountActivity extends AppCompatActivity {
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
+*/
 }
