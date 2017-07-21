@@ -1,6 +1,7 @@
 package com.cocolocomoco.tapalap;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,11 +22,19 @@ import android.widget.TextView;
 public class LapCountFragment extends Fragment {
 	private int lapCount = 0;
 	public static String LAP_COUNT_FRAGMENT_KEY = "lap_count_fragment_key";
+	//private OnLapCountChangeListener lapCountChangeListener;
 
 	public LapCountFragment() {
 		// Required empty public constructor
 	}
 
+	/*
+	public interface OnLapCountChangeListener {
+		public void onIncreaseClick(View view);
+		public void onDecreaseClick(View view);
+		public void onResetClick(View view);
+	}
+	*/
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +55,8 @@ public class LapCountFragment extends Fragment {
 			}
 		);
 
+		//this.lapCountChangeListener = (OnLapCountChangeListener) getActivity();
+
 		return view;
 	}
 
@@ -53,14 +64,6 @@ public class LapCountFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
-
-//	@Override
-//	public boolean onTouch(MotionEvent me) {
-//		return true;
-//	}
-
-	//@Override
-	//public View onPause()
 
 /*
 	@Override
@@ -79,12 +82,15 @@ public class LapCountFragment extends Fragment {
 	}
 
 	public void onDecreaseClick(View view) {
-		if (this.lapCount == 0) {
+		LapCountActivity activity = (LapCountActivity) this.getActivity();
+		int lapCount = activity.getLapCount();
+		if (lapCount == 0) {
 			return;
 		}
 
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(--this.lapCount));
+		//TextView textView = (TextView)getView().findViewById(R.id.lapCountDisplay);
+		TextView textView = (TextView) view;
+		textView.setText(String.valueOf(lapCount));
 	}
 
 	public void onResetClick(View view) {

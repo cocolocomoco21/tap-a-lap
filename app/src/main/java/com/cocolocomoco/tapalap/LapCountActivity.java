@@ -23,7 +23,12 @@ public class LapCountActivity extends AppCompatActivity {
 	private final int NUM_PAGES = 2;
 
 	private int lapCount = 0;
+
 	private ViewPager viewPager;
+
+	private LapCountFragment lapCountFragment;
+	private StatsFragment statsFragment;
+	//private LapCountFragment.OnLapCountChangeListener lapCountChangeListener;
 
 
 	@Override
@@ -31,9 +36,13 @@ public class LapCountActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lap_count);
 
+		this.lapCountFragment = new LapCountFragment();
+		this.statsFragment = new StatsFragment();
+		//this.lapCountChangeListener = this;
+
 		LapPagerAdapter pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
-		pagerAdapter.addFragment(new LapCountFragment());
-		pagerAdapter.addFragment(new StatsFragment());
+		pagerAdapter.addFragment(this.lapCountFragment);
+		pagerAdapter.addFragment(this.statsFragment);
 
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);
@@ -97,6 +106,10 @@ public class LapCountActivity extends AppCompatActivity {
 
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
+	}
+
+	public int getLapCount() {
+		return this.lapCount;
 	}
 
 	public void onDecreaseClick(View view) {
