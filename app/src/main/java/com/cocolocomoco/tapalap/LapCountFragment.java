@@ -20,6 +20,7 @@ import android.widget.TextView;
  */
 public class LapCountFragment extends Fragment {
 	private int lapCount = 0;
+	public static String LAP_COUNT_FRAGMENT_KEY = "lap_count_fragment_key";
 
 	public LapCountFragment() {
 		// Required empty public constructor
@@ -28,10 +29,38 @@ public class LapCountFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+							 final Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_lap_count, container, false);
+		View view = inflater.inflate(R.layout.fragment_lap_count, container, false);
+
+		view.setOnTouchListener((v, event) -> {
+			//public boolean onTouch(View v, MotionEvent event) {
+				int ff = event.getAction();
+				if (event.getAction() == MotionEvent.ACTION_UP) {
+					LapCountActivity activity = (LapCountActivity) this.getActivity();
+					activity.increaseLapCount();
+
+					return true;
+				}
+				return true;
+			}
+		);
+
+		return view;
 	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	}
+
+//	@Override
+//	public boolean onTouch(MotionEvent me) {
+//		return true;
+//	}
+
+	//@Override
+	//public View onPause()
 
 /*
 	@Override

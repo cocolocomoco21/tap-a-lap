@@ -1,6 +1,11 @@
 package com.cocolocomoco.tapalap;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,17 +16,66 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LapCountActivity extends AppCompatActivity {
 
 	private int lapCount = 0;
 	//private GestureDetectorCompat gestureDetector;
 
+	private ViewPager viewPager;
+	private LapPagerAdapter pagerAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_lap_count);
-
+		setContentView(R.layout.activity_lap_count);
 		//this.gestureDetector = new GestureDetectorCompat(this, new MyGestureListener(this));
+
+		//getSupportFragmentManager().beginTransaction()
+		//		.add(R.id.pager, new LapCountFragment()).commit();
+
+		this.viewPager = (ViewPager) findViewById(R.id.pager);
+		this.pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
+
+		this.pagerAdapter.addFragment(new LapCountFragment());
+		this.pagerAdapter.addFragment(new StatsFragment());
+
+		this.viewPager.setAdapter(this.pagerAdapter);
+
+
+		//this.viewPager.setOnTouchListener();
+	}
+
+	class LapPagerAdapter extends FragmentPagerAdapter {
+		private List<Fragment> fragments = new ArrayList<Fragment>();
+
+
+		public LapPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		public void addFragment(Fragment fragment) {
+			this.fragments.add(fragment);
+			notifyDataSetChanged();
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+//			if (position == 0) {
+//				return new LapCountFragment();
+//			} else {
+//				return new StatsFragment();
+//			}
+
+			return this.fragments.get(position);
+		}
+
+		@Override
+		public int getCount() {
+			return 2;
+		}
 	}
 
 	/*
@@ -48,6 +102,18 @@ public class LapCountActivity extends AppCompatActivity {
 	*/
 
 	@Override
+	public void onBackPressed() {
+		if (this.viewPager.getCurrentItem() == 0) {
+			// If the user is currently looking at the first step, allow the system to handle the
+			// Back button. This calls finish() on this activity and pops the back stack.
+			super.onBackPressed();
+		} else {
+			// Otherwise, select the previous step.
+			this.viewPager.setCurrentItem(this.viewPager.getCurrentItem() - 1);
+		}
+	}
+
+	@Override
 	public boolean onTouchEvent(MotionEvent motionEvent) {
 		switch (motionEvent.getAction()) {
 			case MotionEvent.ACTION_DOWN:
@@ -60,6 +126,13 @@ public class LapCountActivity extends AppCompatActivity {
 
 		return true;
 		//return super.onTouchEvent(motionEvent);
+	}
+
+	public void increaseLapCount() {
+		this.lapCount++;
+
+		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
+		textView.setText(String.valueOf(this.lapCount));
 	}
 
 	public void onDecreaseClick(View view) {
