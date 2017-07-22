@@ -1,6 +1,8 @@
 package com.cocolocomoco.tapalap;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,12 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LapCountActivity extends AppCompatActivity {
+public class LapCountActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final int NUM_PAGES = 2;
 
 	private int lapCount = 0;
@@ -41,6 +44,9 @@ public class LapCountActivity extends AppCompatActivity {
 
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);
+
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 	}
 
 	/**
@@ -66,6 +72,22 @@ public class LapCountActivity extends AppCompatActivity {
 		@Override
 		public int getCount() {
 			return NUM_PAGES;
+		}
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		if (key.equals(SettingsActivity.KEY_PREF_SCREEN_ON)) {
+			boolean result = sharedPreferences.getBoolean(key, true);
+			onUpdateScreenOn(result);
+		}
+	}
+
+	public void onUpdateScreenOn(boolean screenOn) {
+		if (screenOn) {
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		} else {
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
 	}
 

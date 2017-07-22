@@ -10,8 +10,7 @@ import android.view.WindowManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
-	private static final String KEY_SCREEN_ON = "pref_screen_on";
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	public SettingsFragment() {
 		// Required empty public constructor
@@ -25,12 +24,28 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 		addPreferencesFromResource(R.xml.preferences);
 
 		// Register listener for preference change
-		PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(this);
+		//PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// Register listener for preference change
+		getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+
+		// Unregister listener for preference change
+		getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		if (key.equals(KEY_SCREEN_ON)) {
+		if (key.equals(SettingsActivity.KEY_PREF_SCREEN_ON)) {
 			boolean result = sharedPreferences.getBoolean(key, true);
 			onUpdateScreenOn(result);
 		}
