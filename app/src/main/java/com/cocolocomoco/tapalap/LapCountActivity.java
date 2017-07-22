@@ -47,6 +47,8 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+
+		loadPreferences();
 	}
 
 	/**
@@ -73,6 +75,13 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		public int getCount() {
 			return NUM_PAGES;
 		}
+	}
+
+	private void loadPreferences() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean screenOn = sharedPreferences.getBoolean(SettingsActivity.KEY_PREF_SCREEN_ON, true);
+
+		onUpdateScreenOn(screenOn);
 	}
 
 	@Override
