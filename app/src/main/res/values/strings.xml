@@ -16,7 +16,6 @@
 
     <!--Options menu-->
     <string name="settings_option">Settings</string>
-    <string name="stats_option">Stats</string>
     <string name="help_option">Help</string>
 
     <!--Help dialog popup-->

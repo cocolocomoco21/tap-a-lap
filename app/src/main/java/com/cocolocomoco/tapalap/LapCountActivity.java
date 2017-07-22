@@ -147,12 +147,6 @@ public class LapCountActivity extends AppCompatActivity implements LapCountFragm
 				showHelp();
 				break;
 			}
-			case R.id.stats: {
-				// Intent to start SettingsActivity
-				Intent intent = new Intent(this, StatsActivity.class);
-				startActivity(intent);
-				break;
-			}
 			default: {
 				break;
 			}
