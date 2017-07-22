@@ -12,19 +12,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LapCountActivity extends AppCompatActivity implements LapCountFragment.OnLapCountChangeListener{
+public class LapCountActivity extends AppCompatActivity {
 	private final int NUM_PAGES = 2;
 
-	//private int lapCount = 0;
+	private int lapCount = 0;
 
 	private ViewPager viewPager;
 	private LapCountFragment lapCountFragment;
 	private StatsFragment statsFragment;
-	private LapCountFragment.OnLapCountChangeListener lapCountChangeListener;
 
 
 	@Override
@@ -34,7 +34,6 @@ public class LapCountActivity extends AppCompatActivity implements LapCountFragm
 
 		this.lapCountFragment = new LapCountFragment();
 		this.statsFragment = new StatsFragment();
-		//this.lapCountChangeListener = this;
 
 		LapPagerAdapter pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
 		pagerAdapter.addFragment(this.lapCountFragment);
@@ -42,21 +41,6 @@ public class LapCountActivity extends AppCompatActivity implements LapCountFragm
 
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);
-	}
-
-	@Override
-	public void onIncreaseClick(View view) {
-		this.lapCountFragment.onIncreaseClick(view);
-	}
-
-	@Override
-	public void onDecreaseClick(View view) {
-		this.lapCountFragment.onDecreaseClick(view);
-	}
-
-	@Override
-	public void onResetClick(View view) {
-		this.lapCountFragment.onResetClick(view);
 	}
 
 	/**
@@ -97,7 +81,6 @@ public class LapCountActivity extends AppCompatActivity implements LapCountFragm
 		}
 	}
 
-	/*
 	public void increaseLapCount() {
 		this.lapCount++;
 
@@ -124,7 +107,6 @@ public class LapCountActivity extends AppCompatActivity implements LapCountFragm
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(this.lapCount));
 	}
-	*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
