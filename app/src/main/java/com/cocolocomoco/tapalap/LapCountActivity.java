@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LapCountActivity extends AppCompatActivity {
-	private final int NUM_PAGES = 2;
+	private static final int NUM_PAGES = 2;
 
 	private int lapCount = 0;
 
