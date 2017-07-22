@@ -31,6 +31,8 @@
     <!--Settings page-->
     <string name="enable_lap_timing_setting_title">Enable lap timing</string>
     <string name="enable_lap_timing_setting_summary">Enable dynamic lap time display on the while tapping</string>
+    <string name="screen_always_on_title">Screen always on</string>
+    <string name="screen_always_on_summary">Leave the screen on while running the app</string>
 
     <!--Stats page-->
     <string name="input_laps_per_mile_landing">Specify laps/mile to see Stats</string>

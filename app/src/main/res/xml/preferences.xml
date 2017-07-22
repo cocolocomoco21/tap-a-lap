@@ -5,4 +5,9 @@
         android:title="@string/enable_lap_timing_setting_title"
         android:summary="@string/enable_lap_timing_setting_summary"
         android:defaultValue="false"/>
+    <CheckBoxPreference
+        android:key="pref_sync"
+        android:title="@string/screen_always_on_title"
+        android:summary="@string/screen_always_on_summary"
+        android:defaultValue="false"/>
 </PreferenceScreen>
