@@ -1,10 +1,7 @@
 package com.cocolocomoco.tapalap;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.WindowManager;
 
 public class SettingsActivity extends AppCompatActivity {
 	protected static final String KEY_PREF_SCREEN_ON = "pref_screen_on";

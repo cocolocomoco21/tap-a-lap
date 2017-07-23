@@ -45,9 +45,11 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);
 
+		// Set default preference values and register this activity as listener
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 
+		// Load existing preferences
 		loadPreferences();
 	}
 
@@ -77,10 +79,15 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		}
 	}
 
+	/**
+	 * Load SharedPreferences. UI loading is handled in SettingsFragment, while the logic/actions
+	 * (e.g. screen always on) are handled here.
+	 */
 	private void loadPreferences() {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean screenOn = sharedPreferences.getBoolean(SettingsActivity.KEY_PREF_SCREEN_ON, true);
 
+		// Screen always on
+		boolean screenOn = sharedPreferences.getBoolean(SettingsActivity.KEY_PREF_SCREEN_ON, true);
 		onUpdateScreenOn(screenOn);
 	}
 
