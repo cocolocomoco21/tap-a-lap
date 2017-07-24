@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/clippy"
+        android:icon="@mipmap/tl_vertical_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/clippy"
+        android:roundIcon="@mipmap/tl_circular_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LapCountActivity">
