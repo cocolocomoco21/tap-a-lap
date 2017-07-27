@@ -1,8 +1,10 @@
-package com.cocolocomoco.tapalap;
+package com.cocolocomoco.tapalap.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
+
+import com.cocolocomoco.tapalap.R;
 
 /**
  * A simple {@link Fragment} subclass.

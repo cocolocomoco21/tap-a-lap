@@ -1,4 +1,4 @@
-package com.cocolocomoco.tapalap;
+package com.cocolocomoco.tapalap.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.cocolocomoco.tapalap.R;
 
 /**
  * A simple {@link Fragment} subclass.

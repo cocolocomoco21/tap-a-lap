@@ -1,4 +1,4 @@
-package com.cocolocomoco.tapalap;
+package com.cocolocomoco.tapalap.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

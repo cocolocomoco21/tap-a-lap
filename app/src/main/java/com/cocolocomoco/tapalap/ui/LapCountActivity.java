@@ -1,4 +1,4 @@
-package com.cocolocomoco.tapalap;
+package com.cocolocomoco.tapalap.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.cocolocomoco.tapalap.R;
 
 import java.util.ArrayList;
 import java.util.List;

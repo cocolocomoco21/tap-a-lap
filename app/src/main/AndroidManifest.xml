@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/tl_circular_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LapCountActivity">
+        <activity android:name=".ui.LapCountActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".LapCountActivity">
+            android:name=".ui.SettingsActivity"
+            android:parentActivityName=".ui.LapCountActivity">
         </activity>
     </application>
 

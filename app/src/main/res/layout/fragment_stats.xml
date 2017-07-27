@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cocolocomoco.tapalap.StatsFragment">
+    tools:context="com.cocolocomoco.tapalap.ui.StatsFragment">
 
     <TextView
         android:id="@+id/textView"
