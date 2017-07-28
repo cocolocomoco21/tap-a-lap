@@ -1,4 +1,4 @@
-package com.cocolocomoco.tapalap.model;
+package com.cocolocomoco.tapalap.model.lap;
 
 
 public class Lap {
