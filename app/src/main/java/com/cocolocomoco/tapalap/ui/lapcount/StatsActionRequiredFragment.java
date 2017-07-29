@@ -10,10 +10,11 @@ import com.cocolocomoco.tapalap.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
  */
-public class StatsFragment extends Fragment {
-	public StatsFragment() {
+public class StatsActionRequiredFragment extends Fragment {
+
+
+	public StatsActionRequiredFragment() {
 		// Required empty public constructor
 	}
 
@@ -21,6 +22,6 @@ public class StatsFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_stats, container, false);
+		return inflater.inflate(R.layout.fragment_stats_action_required, container, false);
 	}
 }

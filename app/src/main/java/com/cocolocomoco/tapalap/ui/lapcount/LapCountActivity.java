@@ -35,6 +35,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	private ViewPager viewPager;
 	private LapCountFragment lapCountFragment;
 	private StatsFragment statsFragment;
+	private StatsActionRequiredFragment statsActionRequiredFragment;
 
 
 	@Override
@@ -44,10 +45,17 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		this.lapCountFragment = new LapCountFragment();
 		this.statsFragment = new StatsFragment();
+		this.statsActionRequiredFragment = new StatsActionRequiredFragment();
 
 		LapPagerAdapter pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
 		pagerAdapter.addFragment(this.lapCountFragment);
-		pagerAdapter.addFragment(this.statsFragment);
+
+		String existingRate = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_PREF_LAPS_PER_MILE, "");
+		if (!existingRate.isEmpty()) {
+			pagerAdapter.addFragment(this.statsFragment);
+		} else {
+			pagerAdapter.addFragment(this.statsActionRequiredFragment);
+		}
 
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);

@@ -38,8 +38,10 @@
     <string name="screen_always_on_title">Screen always on</string>
     <string name="screen_always_on_summary">Leave the screen on while counting laps</string>
 
-    <!--Stats page-->
+    <!--Stats action required page-->
     <string name="input_laps_per_mile_landing">Specify laps/mile to see Stats</string>
     <string name="input_laps_per_mile_button">Input laps/mile</string>
 
+    <!-- Stats page -->
+    <string name="placefiller_text">HERE IS SOME TEXT WOOO</string>
 </resources>
