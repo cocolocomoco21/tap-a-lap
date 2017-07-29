@@ -142,6 +142,12 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		return this.session.getLapCount();
 	}
 
+	// TODO for debugging - delete
+	private void printDebugLaps() {
+		TextView textView = (TextView)findViewById(R.id.debugBox);
+		textView.setText(this.session.debugLaps());
+	}
+
 	public void onDecreaseClick(View view) {
 		this.session.decreaseLapCount();
 

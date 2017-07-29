@@ -25,9 +25,17 @@ public class Lap {
 		return this;
 	}
 
+	public Instant getStart() {
+		return this.interval.getStart();
+	}
+
 	public Lap setStart(Instant start) {
 		this.interval.setStart(start);
 		return this;
+	}
+
+	public Instant getEnd() {
+		return this.interval.getEnd();
 	}
 
 	public Lap setEnd(Instant end) {

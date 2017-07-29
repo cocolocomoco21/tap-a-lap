@@ -15,8 +15,6 @@ public class TimeInterval {
 	 */
 	public TimeInterval(Instant start) {
 		this.start = start;
-		this.end = Instant.EPOCH;
-
 	}
 
 	public TimeInterval(Instant start, Instant end) {
@@ -68,5 +66,15 @@ public class TimeInterval {
 		if (start.isAfter(end)) {
 			throw new IllegalArgumentException("Start of TimeInterval cannot be after end");
 		}
+	}
+
+	// TODO look into Guava's function override?
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("TimeInterval{");
+		sb.append("start=").append(start);
+		sb.append(", end=").append(end);
+		sb.append('}');
+		return sb.toString();
 	}
 }

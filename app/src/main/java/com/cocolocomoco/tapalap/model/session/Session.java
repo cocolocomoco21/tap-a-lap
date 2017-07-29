@@ -83,4 +83,18 @@ public class Session {
 		Lap firstLap = new Lap(Instant.now());
 		this.laps.add(firstLap);
 	}
+
+	// TODO for debugging - delete
+	public String debugLaps() {
+		StringBuilder res = new StringBuilder();
+		for(int i = 0; i < laps.size(); i++)  {
+			Lap lap = laps.get(i);
+			res.append("Lap " + String.valueOf(i) + " | "
+					+ "start: " + lap.getStart() + " "
+					+ "end: " + lap.getEnd()
+					+ "\n");
+		}
+
+		return res.toString();
+	}
 }
