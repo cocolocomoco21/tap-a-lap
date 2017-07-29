@@ -90,9 +90,7 @@ public class Session {
 		for(int i = 0; i < laps.size(); i++)  {
 			Lap lap = laps.get(i);
 			res.append("Lap " + String.valueOf(i) + " | "
-					+ "start: " + lap.getStart() + " "
-					+ "end: " + lap.getEnd()
-					+ "\n");
+					+ "start: " + lap.getInterval().toString() + "\n");
 		}
 
 		return res.toString();

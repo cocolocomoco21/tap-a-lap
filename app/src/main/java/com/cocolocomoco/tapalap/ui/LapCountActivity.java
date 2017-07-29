@@ -139,6 +139,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	}
 
 	public int getLapCount() {
+		printDebugLaps();
 		return this.session.getLapCount();
 	}
 

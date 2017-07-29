@@ -1,6 +1,8 @@
 package com.cocolocomoco.tapalap.model.timeinterval;
 
 import org.threeten.bp.Instant;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneOffset;
 
 
 /**
@@ -71,10 +73,13 @@ public class TimeInterval {
 	// TODO look into Guava's function override?
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("TimeInterval{");
-		sb.append("start=").append(start);
-		sb.append(", end=").append(end);
-		sb.append('}');
+		OffsetDateTime startOffset = start == null ? null : start.atOffset(ZoneOffset.of("-5"));
+		OffsetDateTime endOffset = end == null ? null : end.atOffset(ZoneOffset.of("-5"));
+
+		final StringBuilder sb = new StringBuilder("TimeInterval{")
+				.append("start=").append(startOffset == null ? "NULL " : startOffset.getHour() + ":" + startOffset.getMinute() + ":" + startOffset.getSecond())
+				.append(", end=").append(endOffset == null ? "NULL " : endOffset.getHour() + ":" + endOffset.getMinute() + ":" + endOffset.getSecond())
+				.append('}');
 		return sb.toString();
 	}
 }

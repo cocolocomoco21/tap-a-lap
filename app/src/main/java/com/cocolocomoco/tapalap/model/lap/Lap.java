@@ -20,6 +20,10 @@ public class Lap {
 	}
 
 
+	public TimeInterval getInterval() {
+		return this.interval;
+	}
+
 	public Lap setTimeInterval(TimeInterval interval) {
 		this.interval = interval;
 		return this;
