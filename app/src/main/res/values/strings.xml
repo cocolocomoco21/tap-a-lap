@@ -32,8 +32,9 @@
     </string>
 
     <!--Settings page-->
-    <string name="enable_lap_timing_setting_title">Enable lap timing</string>
-    <string name="enable_lap_timing_setting_summary">Enable dynamic lap time display on the while tapping</string>
+    <string name="laps_per_mile_rate_title">Set laps per mile</string>
+    <string name="laps_per_mile_rate_summary">Specify how many laps are required to run 1 mile</string>
+    <string name="laps_per_mile_rate_hint">Laps per mile</string>
     <string name="screen_always_on_title">Screen always on</string>
     <string name="screen_always_on_summary">Leave the screen on while counting laps</string>
 
