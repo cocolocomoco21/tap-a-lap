@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.cocolocomoco.tapalap.R;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.cocolocomoco.tapalap.R;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 
 public class LapCountActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final int NUM_PAGES = 2;
@@ -53,6 +55,9 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		// Load existing preferences
 		loadPreferences();
+
+		// Initialize timezone
+		AndroidThreeTen.init(this);
 	}
 
 	/**
