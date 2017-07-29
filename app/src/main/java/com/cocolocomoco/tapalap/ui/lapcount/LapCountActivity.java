@@ -1,4 +1,4 @@
-package com.cocolocomoco.tapalap.ui;
+package com.cocolocomoco.tapalap.ui.lapcount;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import com.cocolocomoco.tapalap.model.session.Session;

@@ -1,4 +1,4 @@
-package com.cocolocomoco.tapalap.ui;
+package com.cocolocomoco.tapalap.ui.lapcount;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
