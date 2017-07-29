@@ -7,26 +7,36 @@ import com.cocolocomoco.tapalap.model.timeinterval.TimeInterval;
 
 public class Lap {
 	private TimeInterval interval;
-	
-	Lap() {
-		// Empty constructor
+
+	/**
+	 * Construct a new Lap and set start time.
+	 */
+	public Lap(Instant start) {
+		this.interval = new TimeInterval(start);
 	}
 
-	Lap(Instant start, Instant end) {
+	public Lap(Instant start, Instant end) {
 		this.interval = new TimeInterval(start, end);
 	}
 
 
-	public void setTimeInterval(TimeInterval interval) {
+	public Lap setTimeInterval(TimeInterval interval) {
 		this.interval = interval;
+		return this;
 	}
 
-	public void setStart(Instant start) {
+	public Lap setStart(Instant start) {
 		this.interval.setStart(start);
+		return this;
 	}
 
-	public void setEnd(Instant end) {
+	public Lap setEnd(Instant end) {
 		this.interval.setEnd(end);
+		return this;
 	}
 
+	public Lap unsetEnd() {
+		this.interval.unsetEnd();
+		return this;
+	}
 }

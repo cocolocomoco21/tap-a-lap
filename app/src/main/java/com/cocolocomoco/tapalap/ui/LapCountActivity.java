@@ -16,18 +16,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cocolocomoco.tapalap.R;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import com.cocolocomoco.tapalap.model.session.Session;
+import com.cocolocomoco.tapalap.R;
 
 
 public class LapCountActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final int NUM_PAGES = 2;
 
-	private int lapCount = 0;
+	//private int lapCount = 0;
+	Session session;
 
 	private ViewPager viewPager;
 	private LapCountFragment lapCountFragment;
@@ -58,6 +60,9 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		// Initialize timezone
 		AndroidThreeTen.init(this);
+
+		// Initialize current Session
+		this.session = new Session(7.0);
 	}
 
 	/**
@@ -127,30 +132,28 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	}
 
 	public void increaseLapCount() {
-		this.lapCount++;
+		this.session.increaseLapCount();
 
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(this.lapCount));
+		textView.setText(String.valueOf(getLapCount()));
 	}
 
 	public int getLapCount() {
-		return this.lapCount;
+		return this.session.getLapCount();
 	}
 
 	public void onDecreaseClick(View view) {
-		if (this.lapCount == 0) {
-			return;
-		}
+		this.session.decreaseLapCount();
 
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(--this.lapCount));
+		textView.setText(String.valueOf(getLapCount()));
 	}
 
 	public void onResetClick(View view) {
-		this.lapCount = 0;
+		this.session.resetLapCount();
 
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(this.lapCount));
+		textView.setText(String.valueOf(getLapCount()));
 	}
 
 	@Override

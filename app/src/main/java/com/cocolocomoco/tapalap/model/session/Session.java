@@ -16,9 +16,9 @@ import com.cocolocomoco.tapalap.model.timeinterval.TimeInterval;
  * conversion for this run.
  */
 public class Session {
-	private List<Lap> laps = new ArrayList<>();
+	private List<Lap> laps;
 	//private Iterator<Lap> currentLap;
-	private int lapCount = 0;
+	private int lapCount;		// NOTE: currently this acts as an index, not a count
 	private Double lapsPerMileRate;
 	private TimeInterval interval;
 
@@ -26,11 +26,61 @@ public class Session {
 	 * Creates a new Session and sets the start time.
 	 */
 	public Session(Double lapPerMileRate) {
+		this.laps = new ArrayList<>();
+		this.lapCount = 0;
+
 		this.lapsPerMileRate = lapPerMileRate;
 
-		this.interval = new TimeInterval();
-		this.interval.setStart(Instant.now());
+		Instant timestamp = Instant.now();
+		this.interval = new TimeInterval(timestamp);
 
+		// Add first lap
+		Lap firstLap = new Lap(timestamp);
+		this.laps.add(firstLap);
 	}
 
+
+	private Lap getCurrentLap() {
+		return this.laps.get(this.lapCount);
+	}
+
+	public int getLapCount() {
+		return this.lapCount;
+		//return this.laps.size();
+	}
+
+	public void increaseLapCount() {
+		Instant timestamp = Instant.now();
+
+		// Set end time for current lap
+		getCurrentLap().setEnd(timestamp);
+
+		// Create new lap with start time at end time of newly completed lap
+		Lap nextLap = new Lap(timestamp);
+		this.laps.add(nextLap);
+		this.lapCount++;
+	}
+
+	public void decreaseLapCount() {
+		if (this.lapCount == 0) {
+			return;
+		}
+
+		// Remove current lap
+		this.laps.remove(this.lapCount);
+		this.lapCount--;
+
+		// Unset new current lap's end time since it is now the current/active lap
+		Lap newCurrentLap = getCurrentLap();
+		newCurrentLap.unsetEnd();
+	}
+
+	public void resetLapCount() {
+		this.laps.clear();
+		this.lapCount = 0;
+
+		// Add first lap
+		Lap firstLap = new Lap(Instant.now());
+		this.laps.add(firstLap);
+	}
 }

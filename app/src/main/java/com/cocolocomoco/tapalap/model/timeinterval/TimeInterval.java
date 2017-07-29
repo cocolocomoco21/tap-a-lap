@@ -10,9 +10,13 @@ public class TimeInterval {
 	private Instant start;
 	private Instant end;
 
-	public TimeInterval() {
-		this.start = Instant.now();
+	/**
+	 * Start a TimeInterval AND set start time to current timestamp.
+	 */
+	public TimeInterval(Instant start) {
+		this.start = start;
 		this.end = Instant.EPOCH;
+
 	}
 
 	public TimeInterval(Instant start, Instant end) {
@@ -31,12 +35,23 @@ public class TimeInterval {
 		return this.end;
 	}
 
-	public void setStart(Instant start) {
+	public TimeInterval setStart(Instant start) {
 		this.start = start;
+
+		checkValidInterval(this.start, this.end);
+		return this;
 	}
 
-	public void setEnd(Instant end) {
+	public TimeInterval setEnd(Instant end) {
 		this.end = end;
+
+		checkValidInterval(this.start, this.end);
+		return this;
+	}
+
+	public TimeInterval unsetEnd() {
+		this.end = null;
+		return this;
 	}
 
 	/**
@@ -54,5 +69,4 @@ public class TimeInterval {
 			throw new IllegalArgumentException("Start of TimeInterval cannot be after end");
 		}
 	}
-
 }
