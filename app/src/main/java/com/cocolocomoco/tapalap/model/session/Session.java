@@ -1,7 +1,6 @@
 package com.cocolocomoco.tapalap.model.session;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.threeten.bp.Instant;
@@ -19,6 +18,7 @@ public class Session {
 	private List<Lap> laps;
 	//private Iterator<Lap> currentLap;
 	private int lapCount;		// NOTE: currently this acts as an index, not a count
+	private SessionStatus status;
 	private Double lapsPerMileRate;
 	private TimeInterval interval;
 
@@ -29,11 +29,12 @@ public class Session {
 		this.laps = new ArrayList<>();
 		this.lapCount = 0;
 
-		Instant timestamp = Instant.now();
-		this.interval = new TimeInterval(timestamp);
+		this.interval = new TimeInterval(start);
+
+		this.status = SessionStatus.IN_PROGRESS;
 
 		// Add first lap
-		Lap firstLap = new Lap(timestamp);
+		Lap firstLap = new Lap(start);
 		this.laps.add(firstLap);
 	}
 

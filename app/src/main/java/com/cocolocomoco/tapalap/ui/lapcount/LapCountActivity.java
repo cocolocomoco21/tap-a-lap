@@ -19,12 +19,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.threeten.bp.Instant;
 
 import com.cocolocomoco.tapalap.model.session.Session;
 import com.cocolocomoco.tapalap.R;
+import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 
 
 public class LapCountActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -178,8 +178,13 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	}
 
 	public void initializeSession(Instant start) {
-		// Initialize current Session
+		// Initialize current Session without lapsPerMileRate to create a Session "container". This implies simple counting
 		this.session = new Session(start);
+	}
+
+	public void initializeSession(Instant start, Double lapsPerMileRate) {
+		// Initialize current Session with lapsPerMileRate to start a Session
+		this.session = new Session(start, lapsPerMileRate);
 	}
 
 	@Override
