@@ -31,6 +31,12 @@
         \nHappy lapping!\n
     </string>
 
+    <!-- Session page -->
+    <string name="session_start_text">Start Session</string>
+    <string name="session_pause_text">Pause Session</string>
+    <string name="session_stop_text">Stop Session</string>
+    <string name="session_welcome_text">Current Session</string>
+
     <!--Settings page-->
     <string name="laps_per_mile_rate_title">Set laps per mile</string>
     <string name="laps_per_mile_rate_summary">Specify how many laps are required to run 1 mile</string>
