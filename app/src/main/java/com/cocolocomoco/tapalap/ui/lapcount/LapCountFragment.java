@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.cocolocomoco.tapalap.R;
 
+import org.threeten.bp.Instant;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -28,6 +30,12 @@ public class LapCountFragment extends Fragment {
 		view.setOnTouchListener((v, motionEvent) -> {
 			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
 				LapCountActivity activity = (LapCountActivity) this.getActivity();
+
+				// TODO move check and instatiation into increaseLapCount()?
+				if (activity.getSession() == null) {
+					activity.initializeSession(Instant.now());
+				}
+
 				activity.increaseLapCount();
 
 				return true;

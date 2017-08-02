@@ -23,13 +23,11 @@ public class Session {
 	private TimeInterval interval;
 
 	/**
-	 * Creates a new Session and sets the start time.
+	 * Creates a new Session with specified start time.
 	 */
-	public Session(Double lapPerMileRate) {
+	public Session(Instant start) {
 		this.laps = new ArrayList<>();
 		this.lapCount = 0;
-
-		this.lapsPerMileRate = lapPerMileRate;
 
 		Instant timestamp = Instant.now();
 		this.interval = new TimeInterval(timestamp);
@@ -37,6 +35,14 @@ public class Session {
 		// Add first lap
 		Lap firstLap = new Lap(timestamp);
 		this.laps.add(firstLap);
+	}
+
+	/**
+	 * Creates a new Session with specified start time and lapsPerMileRate
+	 */
+	public Session(Instant start, Double lapPerMileRate) {
+		this(start);
+		this.lapsPerMileRate = lapPerMileRate;
 	}
 
 

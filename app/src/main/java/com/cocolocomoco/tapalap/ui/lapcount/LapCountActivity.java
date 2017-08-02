@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+import org.threeten.bp.Instant;
 
 import com.cocolocomoco.tapalap.model.session.Session;
 import com.cocolocomoco.tapalap.R;
@@ -72,9 +73,6 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		// Initialize timezone
 		AndroidThreeTen.init(this);
-
-		// Initialize current Session
-		this.session = new Session(7.0);
 	}
 
 	/**
@@ -173,6 +171,15 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(getLapCount()));
+	}
+
+	public Session getSession() {
+		return this.session;
+	}
+
+	public void initializeSession(Instant start) {
+		// Initialize current Session
+		this.session = new Session(start);
 	}
 
 	@Override
