@@ -36,6 +36,7 @@
     <string name="session_pause_text">Pause Session</string>
     <string name="session_stop_text">Stop Session</string>
     <string name="session_welcome_text">Current Session</string>
+    <string name="laps_per_mile_required_toast">Specify laps/mile in Settings to begin a Session for counting</string>
 
     <!--Settings page-->
     <string name="laps_per_mile_rate_title">Set laps per mile</string>

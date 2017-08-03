@@ -2,10 +2,13 @@ package com.cocolocomoco.tapalap.ui.lapcount;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cocolocomoco.tapalap.R;
 
@@ -31,12 +34,13 @@ public class LapCountFragment extends Fragment {
 			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
 				LapCountActivity activity = (LapCountActivity) this.getActivity();
 
-				// TODO move check and instatiation into increaseLapCount()?
+				// TODO move check and instantiation into increaseLapCount()?
 				if (activity.getSession() == null) {
-					activity.initializeSession(Instant.now());
+					//activity.initializeSession(Instant.now());
+					Toast.makeText(getActivity(), R.string.laps_per_mile_required_toast, Toast.LENGTH_LONG).show();
+				} else {
+					activity.increaseLapCount();
 				}
-
-				activity.increaseLapCount();
 
 				return true;
 			}
