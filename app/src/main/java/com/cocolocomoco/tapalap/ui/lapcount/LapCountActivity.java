@@ -126,6 +126,11 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		this.viewPager.setCurrentItem(1);
 	}
 
+	public void showSessionFragment() {
+		// TODO access dynamically, don't use hardcoded 0 here
+		this.viewPager.setCurrentItem(0);
+	}
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		if (key.equals(SettingsActivity.KEY_PREF_SCREEN_ON)) {

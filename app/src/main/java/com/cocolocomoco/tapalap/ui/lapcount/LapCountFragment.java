@@ -32,19 +32,22 @@ public class LapCountFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_lap_count, container, false);
 
 		view.setOnTouchListener((v, motionEvent) -> {
+			// Click events, when a user presses the screen to count a lap
 			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
 				LapCountActivity activity = getLapCountActivity();
 
-				// TODO move check and instantiation into increaseLapCount()?
 				if (activity.getSession() == null) {
 					//activity.initializeSession(Instant.now());
-					Toast.makeText(activity, R.string.laps_per_mile_required_toast, Toast.LENGTH_LONG).show();
+
+					// Notify user they must start Session, move them to Session page
+					Toast.makeText(activity, R.string.session_start_required_toast, Toast.LENGTH_SHORT).show();
+					activity.showSessionFragment();
+					return false;
 				} else {
 					onIncreaseClick(view);
 				}
-
-				return true;
 			}
+
 			return true;
 		});
 

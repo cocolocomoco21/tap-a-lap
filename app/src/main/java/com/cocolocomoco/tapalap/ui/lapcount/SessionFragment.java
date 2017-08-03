@@ -34,7 +34,7 @@ public class SessionFragment extends Fragment {
 		Double existingRate = activity.getLapPerMilePreference();
 		if (existingRate == null) {
 			// Display Toast for laps per mile input
-			Toast.makeText(getActivity(), R.string.laps_per_mile_required_toast, Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity(), R.string.laps_per_mile_required_toast, Toast.LENGTH_SHORT).show();
 		} else {
 			// Initialize Session, return to show LapCountFragment
 			activity.initializeSession(Instant.now(), existingRate);
