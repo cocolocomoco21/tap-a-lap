@@ -154,13 +154,6 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		}
 	}
 
-	public void increaseLapCount() {
-		this.session.increaseLapCount();
-
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(getLapCount()));
-	}
-
 	public int getLapCount() {
 		printDebugLaps();
 		return this.session.getLapCount();
@@ -172,18 +165,16 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		textView.setText(this.session.debugLaps());
 	}
 
-	public void onDecreaseClick(View view) {
-		this.session.decreaseLapCount();
+	public void increaseLapCount(View view) {
+		this.lapCountFragment.onIncreaseClick(view);
+	}
 
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(getLapCount()));
+	public void onDecreaseClick(View view) {
+		this.lapCountFragment.onDecreaseClick(view);
 	}
 
 	public void onResetClick(View view) {
-		this.session.resetLapCount();
-
-		TextView textView = (TextView)findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(getLapCount()));
+		this.lapCountFragment.onResetClick(view);
 	}
 
 	public void onStartSessionClick(View view) {

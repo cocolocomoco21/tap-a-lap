@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocolocomoco.tapalap.R;
+import com.cocolocomoco.tapalap.model.session.Session;
 
 import org.threeten.bp.Instant;
 
@@ -32,14 +33,14 @@ public class LapCountFragment extends Fragment {
 
 		view.setOnTouchListener((v, motionEvent) -> {
 			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-				LapCountActivity activity = (LapCountActivity) this.getActivity();
+				LapCountActivity activity = getLapCountActivity();
 
 				// TODO move check and instantiation into increaseLapCount()?
 				if (activity.getSession() == null) {
 					//activity.initializeSession(Instant.now());
-					Toast.makeText(getActivity(), R.string.laps_per_mile_required_toast, Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, R.string.laps_per_mile_required_toast, Toast.LENGTH_LONG).show();
 				} else {
-					activity.increaseLapCount();
+					onIncreaseClick(view);
 				}
 
 				return true;
@@ -53,5 +54,38 @@ public class LapCountFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	}
+
+	public void onIncreaseClick(View view) {
+		LapCountActivity activity = getLapCountActivity();
+		activity.getSession().increaseLapCount();
+
+		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
+		textView.setText(String.valueOf(activity.getLapCount()));
+	}
+
+	public void onDecreaseClick(View view) {
+		LapCountActivity activity = getLapCountActivity();
+		activity.getSession().decreaseLapCount();
+
+		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
+		textView.setText(String.valueOf(activity.getLapCount()));
+	}
+
+	public void onResetClick(View view) {
+		LapCountActivity activity = getLapCountActivity();
+		activity.getSession().resetLapCount();
+
+		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
+		textView.setText(String.valueOf(activity.getLapCount()));
+	}
+
+	private LapCountActivity getLapCountActivity() {
+		return (LapCountActivity) this.getActivity();
+	}
+
+	private Session getSessionFromActivity()
+	{
+		return getLapCountActivity().getSession();
 	}
 }
