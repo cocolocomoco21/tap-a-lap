@@ -113,6 +113,19 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		onUpdateScreenOn(screenOn);
 	}
 
+	public Double getLapPerMilePreference() {
+		String existingRate = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_PREF_LAPS_PER_MILE, "");
+		if (existingRate.isEmpty()) {
+			return null;
+		}
+		return Double.valueOf(existingRate);
+	}
+
+	public void showLapCountFragment() {
+		// TODO access dynamically, don't use hardcoded 1 here
+		this.viewPager.setCurrentItem(1);
+	}
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 		if (key.equals(SettingsActivity.KEY_PREF_SCREEN_ON)) {
@@ -173,16 +186,20 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		textView.setText(String.valueOf(getLapCount()));
 	}
 
+	public void onStartSessionClick(View view) {
+		this.sessionFragment.onStartSessionClick(view);
+	}
+
 	public Session getSession() {
 		return this.session;
 	}
 
 	public void initializeSession(Instant start) {
-		String existingRate = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_PREF_LAPS_PER_MILE, "");
-		if (existingRate.isEmpty()) {
+		Double existingRate = getLapPerMilePreference();
+		if (existingRate == null) {
 			this.session = new Session(start);
 		} else {
-			initializeSession(start, Double.valueOf(existingRate));
+			initializeSession(start, existingRate);
 		}
 	}
 
