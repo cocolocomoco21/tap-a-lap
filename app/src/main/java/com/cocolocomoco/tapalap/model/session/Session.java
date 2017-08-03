@@ -94,7 +94,7 @@ public class Session {
 	// TODO for debugging - delete
 	public String debugLaps() {
 		StringBuilder res = new StringBuilder();
-		res.append("Session | " + this.interval.toString() + "\n");
+		res.append("Session | lapsPerMile: " + this.lapsPerMileRate + " | " + this.interval.toString() + "\n");
 		for(int i = 0; i < laps.size(); i++)  {
 			Lap lap = laps.get(i);
 			res.append("Lap " + String.valueOf(i) + " | "

@@ -178,8 +178,12 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	}
 
 	public void initializeSession(Instant start) {
-		// Initialize current Session without lapsPerMileRate to create a Session "container". This implies simple counting
-		this.session = new Session(start);
+		String existingRate = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_PREF_LAPS_PER_MILE, "");
+		if (existingRate.isEmpty()) {
+			this.session = new Session(start);
+		} else {
+			initializeSession(start, Double.valueOf(existingRate));
+		}
 	}
 
 	public void initializeSession(Instant start, Double lapsPerMileRate) {
