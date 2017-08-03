@@ -72,8 +72,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 		String text = pref.getText();
 		if (text.isEmpty()) {
 			pref.setSummary(R.string.laps_per_mile_rate_summary);
+			return;
+		}
+
+		Double existingRate = Double.valueOf(text);
+		if (existingRate.equals(0.0)) {
+			// Clear values equal to 0
+			pref.setSummary(R.string.laps_per_mile_rate_summary);
+			pref.setText("");
 		} else {
-			pref.setSummary(pref.getText());
+			pref.setSummary(existingRate.toString());
+			pref.setText(existingRate.toString());
 		}
 	}
 }
