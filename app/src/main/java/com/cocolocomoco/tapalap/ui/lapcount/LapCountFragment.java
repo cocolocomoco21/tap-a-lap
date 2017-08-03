@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.cocolocomoco.tapalap.R;
 import com.cocolocomoco.tapalap.model.session.Session;
 
-import org.threeten.bp.Instant;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,8 +36,6 @@ public class LapCountFragment extends Fragment {
 				LapCountActivity activity = getLapCountActivity();
 
 				if (activity.getSession() == null) {
-					//activity.initializeSession(Instant.now());
-
 					// Notify user they must start Session, move them to Session page
 					Toast.makeText(activity, R.string.session_start_required_toast, Toast.LENGTH_SHORT).show();
 					activity.showSessionFragment();
@@ -59,6 +56,9 @@ public class LapCountFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 	}
 
+	/**
+	 * onClick handler for Increase click, or click anywhere on page.
+	 */
 	public void onIncreaseClick(View view) {
 		LapCountActivity activity = getLapCountActivity();
 		activity.getSession().increaseLapCount();
@@ -67,6 +67,9 @@ public class LapCountFragment extends Fragment {
 		textView.setText(String.valueOf(activity.getLapCount()));
 	}
 
+	/**
+	 * onClick handler for Decrease button.
+	 */
 	public void onDecreaseClick(View view) {
 		LapCountActivity activity = getLapCountActivity();
 		activity.getSession().decreaseLapCount();
@@ -75,6 +78,9 @@ public class LapCountFragment extends Fragment {
 		textView.setText(String.valueOf(activity.getLapCount()));
 	}
 
+	/**
+	 * onClick handler for Reset button.
+	 */
 	public void onResetClick(View view) {
 		LapCountActivity activity = getLapCountActivity();
 		activity.getSession().resetLapCount();

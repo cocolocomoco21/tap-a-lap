@@ -29,6 +29,9 @@ public class SessionFragment extends Fragment {
 		return inflater.inflate(R.layout.fragment_session, container, false);
 	}
 
+	/**
+	 * onClick handler for Start Session button.
+	 */
 	public void onStartSessionClick(View view) {
 		LapCountActivity activity = (LapCountActivity) this.getActivity();
 		Double existingRate = activity.getLapPerMilePreference();

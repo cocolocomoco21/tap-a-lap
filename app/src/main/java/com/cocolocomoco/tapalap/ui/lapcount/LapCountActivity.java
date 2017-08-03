@@ -28,12 +28,13 @@ import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 
 
 public class LapCountActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-	private static final int NUM_PAGES = 2;
+	private static final int NUM_PAGES = 3;
 
-	//private int lapCount = 0;
-	Session session;
+	private Session session;
 
 	private ViewPager viewPager;
+
+	// Fragments for use in ViewPager
 	private LapCountFragment lapCountFragment;
 	private SessionFragment sessionFragment;
 	private StatsFragment statsFragment;
@@ -45,15 +46,18 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lap_count);
 
+		// Initialize fragments
 		this.lapCountFragment = new LapCountFragment();
 		this.sessionFragment = new SessionFragment();
 		this.statsFragment = new StatsFragment();
 		this.statsActionRequiredFragment = new StatsActionRequiredFragment();
 
+		// Initialize ViewPager and PagerAdapter
 		LapPagerAdapter pagerAdapter = new LapPagerAdapter(getSupportFragmentManager());
 		pagerAdapter.addFragment(this.sessionFragment);
 		pagerAdapter.addFragment(this.lapCountFragment);
 
+		// TODO look into updating fragments after lapPerMileRate is set (after startup)
 		String existingRate = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_PREF_LAPS_PER_MILE, "");
 		if (!existingRate.isEmpty()) {
 			pagerAdapter.addFragment(this.statsFragment);
@@ -64,11 +68,9 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		this.viewPager = (ViewPager) findViewById(R.id.pager);
 		this.viewPager.setAdapter(pagerAdapter);
 
-		// Set default preference values and register this activity as listener
+		// Initialize preferences
 		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
-
-		// Load existing preferences
 		loadPreferences();
 
 		// Initialize timezone
@@ -101,6 +103,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		}
 	}
 
+
 	/**
 	 * Load SharedPreferences. UI loading is handled in SettingsFragment, while the logic/actions
 	 * (e.g. screen always on) are handled here.
@@ -113,22 +116,15 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		onUpdateScreenOn(screenOn);
 	}
 
+	/**
+	 * Get lap per mile rate preference from SharedPreferences.
+	 */
 	public Double getLapPerMilePreference() {
 		String existingRate = PreferenceManager.getDefaultSharedPreferences(this).getString(SettingsActivity.KEY_PREF_LAPS_PER_MILE, "");
 		if (existingRate.isEmpty()) {
 			return null;
 		}
 		return Double.valueOf(existingRate);
-	}
-
-	public void showLapCountFragment() {
-		// TODO access dynamically, don't use hardcoded 1 here
-		this.viewPager.setCurrentItem(1);
-	}
-
-	public void showSessionFragment() {
-		// TODO access dynamically, don't use hardcoded 0 here
-		this.viewPager.setCurrentItem(0);
 	}
 
 	@Override
@@ -159,6 +155,27 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		}
 	}
 
+
+	/**
+	 * Update activity's ViewPager to show LapCountFragment.
+	 */
+	public void showLapCountFragment() {
+		// TODO access dynamically, don't use hardcoded 1 here
+		this.viewPager.setCurrentItem(1);
+	}
+
+	/**
+	 * Update activity's ViewPager to show SessionFragment
+	 */
+	public void showSessionFragment() {
+		// TODO access dynamically, don't use hardcoded 0 here
+		this.viewPager.setCurrentItem(0);
+	}
+
+
+	/**
+	 * Get the current Session's lap count.
+	 */
 	public int getLapCount() {
 		printDebugLaps();
 		return this.session.getLapCount();
@@ -170,40 +187,46 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		textView.setText(this.session.debugLaps());
 	}
 
-	public void increaseLapCount(View view) {
-		this.lapCountFragment.onIncreaseClick(view);
-	}
-
+	/**
+	 * onClick handler for Decrease button in LapCountFragment.
+	 */
 	public void onDecreaseClick(View view) {
 		this.lapCountFragment.onDecreaseClick(view);
 	}
 
+	/**
+	 * onClick handler for Reset button in LapCountFragment.
+	 */
 	public void onResetClick(View view) {
 		this.lapCountFragment.onResetClick(view);
 	}
 
+
+	/**
+	 * onClick handler for Start Session button in SessionFragment.
+	 */
 	public void onStartSessionClick(View view) {
 		this.sessionFragment.onStartSessionClick(view);
+	}
+
+	/**
+	 * Initialize session with the specified start timestamp and lapPerMileRate
+	 * @param start - start timestamp of this Session.
+	 * @param lapsPerMileRate - lap per mile rate for this Session.
+	 */
+	public void initializeSession(Instant start, Double lapsPerMileRate) {
+		// Initialize current Session with lapsPerMileRate to start a Session
+		this.session = new Session(start, lapsPerMileRate);
 	}
 
 	public Session getSession() {
 		return this.session;
 	}
 
-	public void initializeSession(Instant start) {
-		Double existingRate = getLapPerMilePreference();
-		if (existingRate == null) {
-			this.session = new Session(start);
-		} else {
-			initializeSession(start, existingRate);
-		}
-	}
 
-	public void initializeSession(Instant start, Double lapsPerMileRate) {
-		// Initialize current Session with lapsPerMileRate to start a Session
-		this.session = new Session(start, lapsPerMileRate);
-	}
-
+	/**
+	 * Options menu.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -212,6 +235,9 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		return true;
 	}
 
+	/**
+	 * Options menu.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
@@ -234,6 +260,9 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		return true;
 	}
 
+	/**
+	 * Show help when selected from the Options menu.
+	 */
 	private void showHelp() {
 		// Display help dialog popup
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
