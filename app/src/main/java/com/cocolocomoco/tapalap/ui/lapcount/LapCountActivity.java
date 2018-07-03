@@ -210,6 +210,16 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	}
 
 	/**
+	 * onClick handler for Stop Session button in SessionFragment.
+	 */
+	public void onStopSessionClick(View view) {
+		this.sessionFragment.onStopSessionClick(view);
+
+		// TODO debugging - delete
+		printDebugLaps();
+	}
+
+	/**
 	 * Initialize session with the specified start timestamp and lapPerMileRate
 	 * @param start - start timestamp of this Session.
 	 * @param lapsPerMileRate - lap per mile rate for this Session.
@@ -217,6 +227,14 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	public void initializeSession(Instant start, Double lapsPerMileRate) {
 		// Initialize current Session with lapsPerMileRate to start a Session
 		this.session = new Session(start, lapsPerMileRate);
+	}
+
+	public boolean endSession(Instant end) {
+		if (this.session == null) {
+			return false;
+		}
+
+		return this.session.endSession(end);
 	}
 
 	public Session getSession() {

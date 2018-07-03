@@ -37,7 +37,7 @@ public class SessionFragment extends Fragment {
 		Double existingRate = activity.getLapPerMilePreference();
 		if (existingRate == null) {
 			// Display Toast for laps per mile input
-			Toast.makeText(getActivity(), R.string.laps_per_mile_required_toast, Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, R.string.laps_per_mile_required_toast, Toast.LENGTH_SHORT).show();
 		} else {
 			// Initialize Session, return to show LapCountFragment
 			activity.initializeSession(Instant.now(), existingRate);
@@ -46,4 +46,19 @@ public class SessionFragment extends Fragment {
 		}
 	}
 
+	/**
+	 * onClick handler for Stop Session button.
+	 */
+	public void onStopSessionClick(View view) {
+		LapCountActivity activity = (LapCountActivity) this.getActivity();
+		if (activity.endSession(Instant.now())) {
+			Toast.makeText(activity, R.string.session_ended_toast, Toast.LENGTH_SHORT).show();
+		} else {
+			// This assumes the only way to fail is by having a null session
+			Toast.makeText(activity, R.string.session_must_start_before_ending_toast, Toast.LENGTH_SHORT).show();
+		}
+
+		// TODO delete - debugging
+		activity.showLapCountFragment();
+	}
 }

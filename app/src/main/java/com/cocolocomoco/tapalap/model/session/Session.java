@@ -103,4 +103,20 @@ public class Session {
 
 		return res.toString();
 	}
+
+	/**
+	 * End this Session, using the specified end time as the end of the Session.
+	 */
+	public boolean endSession(Instant end) {
+		if (!this.laps.isEmpty()) {
+			// Set end time for current lap
+			getCurrentLap().setEnd(end);
+		}
+
+		// Set end time for interval, set status to complete
+		this.interval.setEnd(end);
+		this.status = SessionStatus.COMPLETED;
+
+		return true;
+	}
 }

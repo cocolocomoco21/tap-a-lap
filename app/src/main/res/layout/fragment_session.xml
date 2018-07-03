@@ -44,6 +44,7 @@
         android:id="@+id/sessionStopButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:onClick="onStopSessionClick"
         android:text="@string/session_stop_text"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"

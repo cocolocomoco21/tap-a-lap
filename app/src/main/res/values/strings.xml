@@ -39,6 +39,8 @@
     <string name="laps_per_mile_required_toast">Specify laps/mile in Settings to begin a Session for counting</string>
     <string name="session_started_toast">Session started!</string>
     <string name="session_start_required_toast">Must start Session first!</string>
+    <string name="session_ended_toast">Session ended!</string>
+    <string name="session_must_start_before_ending_toast">Must start Session before you can end one!</string>
 
     <!--Settings page-->
     <string name="laps_per_mile_rate_title">Set laps per mile</string>
