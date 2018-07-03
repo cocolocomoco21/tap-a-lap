@@ -57,6 +57,10 @@ public class Session {
 	}
 
 	public void increaseLapCount() {
+		if (!this.canAlter()) {
+			return;
+		}
+
 		Instant timestamp = Instant.now();
 
 		// Set end time for current lap
@@ -69,7 +73,7 @@ public class Session {
 	}
 
 	public void decreaseLapCount() {
-		if (this.lapCount == 0) {
+		if (!this.canAlter() || this.lapCount == 0) {
 			return;
 		}
 
@@ -118,5 +122,9 @@ public class Session {
 		this.status = SessionStatus.COMPLETED;
 
 		return true;
+	}
+
+	private boolean canAlter() {
+		return this.status == SessionStatus.IN_PROGRESS;
 	}
 }

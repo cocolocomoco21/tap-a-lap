@@ -50,6 +50,8 @@ public class SessionFragment extends Fragment {
 	 * onClick handler for Stop Session button.
 	 */
 	public void onStopSessionClick(View view) {
+		// TODO check for if session is already ended
+
 		LapCountActivity activity = (LapCountActivity) this.getActivity();
 		if (activity.endSession(Instant.now())) {
 			Toast.makeText(activity, R.string.session_ended_toast, Toast.LENGTH_SHORT).show();
@@ -57,8 +59,5 @@ public class SessionFragment extends Fragment {
 			// This assumes the only way to fail is by having a null session
 			Toast.makeText(activity, R.string.session_must_start_before_ending_toast, Toast.LENGTH_SHORT).show();
 		}
-
-		// TODO delete - debugging
-		activity.showLapCountFragment();
 	}
 }
