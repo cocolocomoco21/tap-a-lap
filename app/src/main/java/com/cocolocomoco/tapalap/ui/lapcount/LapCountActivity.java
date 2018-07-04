@@ -23,6 +23,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.threeten.bp.Instant;
 
 import com.cocolocomoco.tapalap.model.session.Session;
+import com.cocolocomoco.tapalap.model.session.SessionStatus;
 import com.cocolocomoco.tapalap.R;
 import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 
@@ -221,6 +222,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 	/**
 	 * Initialize session with the specified start timestamp and lapPerMileRate
+	 * // TODO make this private or remove. Currently left public for a hack to simulate restarting a Session from SessionFragment, since that functionality doesn't exist yet
 	 * @param start - start timestamp of this Session.
 	 * @param lapsPerMileRate - lap per mile rate for this Session.
 	 */
@@ -229,9 +231,32 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		this.session = new Session(start, lapsPerMileRate);
 	}
 
-	public boolean endSession(Instant end) {
+	/**
+	 * Start the session. Initialize the session if empty, and otherwise attempt to start/resume an
+	 * already existing session, if able. Regardless, return the previous session status.
+	 * @param start - start timestamp of this session, should it need to be initialized.
+	 * @param lapsPerMileRate - lap per mile rate for this session.
+	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
+	 */
+	public SessionStatus startSession(Instant start, Double lapsPerMileRate) {
 		if (this.session == null) {
-			return false;
+			initializeSession(start, lapsPerMileRate);
+			return SessionStatus.NOT_STARTED;
+		}
+
+		// TODO revamp this to avoid null checking and rather make an empty Session object that handles some initialization within itself
+
+		return this.session.startSession();
+	}
+
+	/**
+	 * End the session if able. Regardless, return the previous session status.
+	 * @param end - end timestamp of the session.
+	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
+	 */
+	public SessionStatus endSession(Instant end) {
+		if (this.session == null) {
+			return SessionStatus.NOT_STARTED;
 		}
 
 		return this.session.endSession(end);

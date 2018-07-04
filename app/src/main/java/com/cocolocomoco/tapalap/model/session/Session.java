@@ -95,6 +95,10 @@ public class Session {
 		this.laps.add(firstLap);
 	}
 
+	private boolean canAlter() {
+		return this.status == SessionStatus.IN_PROGRESS;
+	}
+
 	// TODO for debugging - delete
 	public String debugLaps() {
 		StringBuilder res = new StringBuilder();
@@ -109,22 +113,66 @@ public class Session {
 	}
 
 	/**
-	 * End this Session, using the specified end time as the end of the Session.
+	 * Start this Session.
+	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
 	 */
-	public boolean endSession(Instant end) {
-		if (!this.laps.isEmpty()) {
-			// Set end time for current lap
-			getCurrentLap().setEnd(end);
-		}
-
-		// Set end time for interval, set status to complete
-		this.interval.setEnd(end);
-		this.status = SessionStatus.COMPLETED;
-
-		return true;
+	public SessionStatus startSession() {
+		SessionStatus previousStatus = updateStatusAfterStartAttempt();
+		return previousStatus;
 	}
 
-	private boolean canAlter() {
-		return this.status == SessionStatus.IN_PROGRESS;
+	/**
+	 * End this Session, using the specified end time as the end of the Session.
+	 * @param end - end timestamp of the session.
+	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
+	 */
+	public SessionStatus endSession(Instant end) {
+		SessionStatus previousStatus = updateStatusAfterCompleteAttempt();
+
+		// Session is able to be ended
+		if (previousStatus == SessionStatus.IN_PROGRESS || previousStatus == SessionStatus.PAUSED) {
+			// Set end time for current lap
+			getCurrentLap().setEnd(end);
+
+			// Set end time for interval, set status to complete
+			this.interval.setEnd(end);
+		}
+
+		return previousStatus;
+	}
+
+	private SessionStatus updateStatusAfterStartAttempt() {
+		SessionStatus status = this.status;
+
+		// TODO "NOT_STARTED" doesn't happen yet, but change design to have this conditional actually get hit
+
+		// NOT_STARTED -> IN_PROGRESS
+		// IN_PROGRESS -> (no change)
+		// PAUSED -> IN_PROGRESS
+		// COMPLTED -> IN_PROGRESS
+		if (status == SessionStatus.NOT_STARTED || status == SessionStatus.PAUSED || status == SessionStatus.COMPLETED) {
+			this.status = SessionStatus.IN_PROGRESS;
+		}
+
+		return status;
+	}
+
+	private SessionStatus updateStatusAfterPauseAttempt() {
+		// TODO
+		return null;
+	}
+
+	private SessionStatus updateStatusAfterCompleteAttempt() {
+		SessionStatus status = this.status;
+
+		// NOT_STARTED -> (no change)
+		// IN_PROGRESS -> COMPLTED
+		// PAUSED -> COMPLETED
+		// COMPLTED -> (no change)
+		if (status == SessionStatus.IN_PROGRESS || status == SessionStatus.PAUSED) {
+			this.status = SessionStatus.COMPLETED;
+		}
+
+		return status;
 	}
 }

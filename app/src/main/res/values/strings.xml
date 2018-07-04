@@ -35,11 +35,18 @@
     <string name="session_start_text">Start Session</string>
     <string name="session_pause_text">Pause Session</string>
     <string name="session_stop_text">Stop Session</string>
+
     <string name="session_welcome_text">Current Session</string>
+
     <string name="laps_per_mile_required_toast">Specify laps/mile in Settings to begin a Session for counting</string>
+
     <string name="session_started_toast">Session started!</string>
     <string name="session_start_required_toast">Must start Session first!</string>
+    <string name="session_already_started_toast">Session already started! Stop current session to start new one</string>
+    <string name="session_resumed_toast">Session resumed!</string>
+
     <string name="session_ended_toast">Session ended!</string>
+    <string name="session_already_ended_toast">Session already ended!</string>
     <string name="session_must_start_before_ending_toast">Must start Session before you can end one!</string>
 
     <!--Settings page-->
