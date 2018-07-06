@@ -23,6 +23,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.threeten.bp.Instant;
 
 import com.cocolocomoco.tapalap.model.session.Session;
+import com.cocolocomoco.tapalap.manager.SessionManager;
 import com.cocolocomoco.tapalap.model.session.SessionStatus;
 import com.cocolocomoco.tapalap.R;
 import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
@@ -31,7 +32,8 @@ import com.cocolocomoco.tapalap.ui.settings.SettingsActivity;
 public class LapCountActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private static final int NUM_PAGES = 3;
 
-	private Session session;
+	// Abstact inner-workings of the Session to SessionManager
+	private SessionManager sessionManager;
 
 	private ViewPager viewPager;
 
@@ -77,8 +79,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		// Initialize timezone
 		AndroidThreeTen.init(this);
 
-		// Initialize "empty" session
-		this.session = new Session();
+		this.sessionManager = new SessionManager();
 	}
 
 	/**
@@ -182,13 +183,13 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 */
 	public int getLapCount() {
 		printDebugLaps();
-		return getSession().getLapCount();
+		return this.sessionManager.getCurrentSession().getLapCount();
 	}
 
 	// TODO for debugging - delete
 	private void printDebugLaps() {
 		TextView textView = (TextView)findViewById(R.id.debugBox);
-		textView.setText(getSession().debugLaps());
+		textView.setText(this.sessionManager.getCurrentSession().debugLaps());
 	}
 
 	/**
@@ -224,14 +225,12 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	}
 
 	/**
-	 * Initialize session with the specified start timestamp and lapPerMileRate
-	 * // TODO make this private or remove. Currently left public for a hack to simulate restarting a Session from SessionFragment, since that functionality doesn't exist yet
-	 * @param start - start timestamp of this Session.
-	 * @param lapsPerMileRate - lap per mile rate for this Session.
+	 * Begin a new Session after one has already been started.
+	 * @param start - start timestamp of this session, should it need to be initialized.
+	 * @param existingRate - lap per mile rate.
 	 */
-	public void initializeSession(Instant start, Double lapsPerMileRate) {
-		// Initialize current Session with lapsPerMileRate to start a Session
-		getSession().initialize(start, lapsPerMileRate);
+	public void beginNewSession(Instant start, Double existingRate) {
+		this.sessionManager.beginNewSession(start, existingRate);
 	}
 
 	/**
@@ -242,12 +241,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
 	 */
 	public SessionStatus startSession(Instant start, Double lapsPerMileRate) {
-		if (getSession().isNotStarted()) {
-			initializeSession(start, lapsPerMileRate);
-			return SessionStatus.NOT_STARTED;
-		}
-
-		return getSession().startSession();
+		return this.sessionManager.startSession(start, lapsPerMileRate);
 	}
 
 	/**
@@ -256,15 +250,11 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
 	 */
 	public SessionStatus endSession(Instant end) {
-		if (getSession().isNotStarted()) {
-			return SessionStatus.NOT_STARTED;
-		}
-
-		return getSession().endSession(end);
+		return this.sessionManager.endCurrentSession(end);
 	}
 
-	public Session getSession() {
-		return this.session;
+	public Session getCurrentSession() {
+		return this.sessionManager.getCurrentSession();
 	}
 
 

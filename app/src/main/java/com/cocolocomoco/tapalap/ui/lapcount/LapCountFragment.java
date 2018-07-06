@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocolocomoco.tapalap.R;
-import com.cocolocomoco.tapalap.model.session.Session;
 
 
 /**
@@ -35,7 +34,7 @@ public class LapCountFragment extends Fragment {
 			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
 				LapCountActivity activity = getLapCountActivity();
 
-				if (activity.getSession().isNotStarted()) {
+				if (activity.getCurrentSession().isNotStarted()) {
 					// Notify user they must start Session, move them to Session page
 					Toast.makeText(activity, R.string.session_start_required_toast, Toast.LENGTH_SHORT).show();
 					activity.showSessionFragment();
@@ -61,7 +60,7 @@ public class LapCountFragment extends Fragment {
 	 */
 	public void onIncreaseClick(View view) {
 		LapCountActivity activity = getLapCountActivity();
-		activity.getSession().increaseLapCount();
+		activity.getCurrentSession().increaseLapCount();
 
 		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(activity.getLapCount()));
@@ -72,7 +71,7 @@ public class LapCountFragment extends Fragment {
 	 */
 	public void onDecreaseClick(View view) {
 		LapCountActivity activity = getLapCountActivity();
-		activity.getSession().decreaseLapCount();
+		activity.getCurrentSession().decreaseLapCount();
 
 		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(activity.getLapCount()));
@@ -83,7 +82,7 @@ public class LapCountFragment extends Fragment {
 	 */
 	public void onResetClick(View view) {
 		LapCountActivity activity = getLapCountActivity();
-		activity.getSession().resetLapCount();
+		activity.getCurrentSession().resetLapCount();
 
 		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
 		textView.setText(String.valueOf(activity.getLapCount()));
@@ -91,10 +90,5 @@ public class LapCountFragment extends Fragment {
 
 	private LapCountActivity getLapCountActivity() {
 		return (LapCountActivity) this.getActivity();
-	}
-
-	private Session getSessionFromActivity()
-	{
-		return getLapCountActivity().getSession();
 	}
 }

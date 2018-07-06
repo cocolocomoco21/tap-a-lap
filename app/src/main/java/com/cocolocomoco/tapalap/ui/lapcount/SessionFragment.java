@@ -61,7 +61,7 @@ public class SessionFragment extends Fragment {
 		} else if (previousStatus == SessionStatus.COMPLETED) {
 			// TODO "are you sure you want to start new session?" popup window
 			Toast.makeText(activity, "are you sure you want to start a new session? TODO", Toast.LENGTH_SHORT).show();
-			activity.initializeSession(Instant.now(), existingRate);
+			activity.beginNewSession(Instant.now(), existingRate);
 			activity.showLapCountFragment();
 		}
 	}
