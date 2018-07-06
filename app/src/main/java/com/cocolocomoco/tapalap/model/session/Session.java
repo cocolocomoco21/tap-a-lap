@@ -23,27 +23,32 @@ public class Session {
 	private TimeInterval interval;
 
 	/**
-	 * Creates a new Session with specified start time.
+	 * Creates empty Session, to be initialized when "started", to avoid having null checking.
 	 */
-	public Session(Instant start) {
+	public Session() {
+		this.status = SessionStatus.NOT_STARTED;
+	}
+
+	/**
+	 * Initializes a new Session with specified start time and lapsPerMileRate.
+	 */
+	public void initialize(Instant start, Double lapPerMileRate) {
+		// Required for a session
+		this.lapsPerMileRate = lapPerMileRate;
+
+		// Initialize lap counting mechanisms
 		this.laps = new ArrayList<>();
 		this.lapCount = 0;
-
-		this.interval = new TimeInterval(start);
-
-		this.status = SessionStatus.IN_PROGRESS;
 
 		// Add first lap
 		Lap firstLap = new Lap(start);
 		this.laps.add(firstLap);
-	}
 
-	/**
-	 * Creates a new Session with specified start time and lapsPerMileRate
-	 */
-	public Session(Instant start, Double lapPerMileRate) {
-		this(start);
-		this.lapsPerMileRate = lapPerMileRate;
+		// Session's start and end time interval
+		this.interval = new TimeInterval(start);
+
+		// Session is now in progress
+		this.status = SessionStatus.IN_PROGRESS;
 	}
 
 
@@ -87,6 +92,10 @@ public class Session {
 	}
 
 	public void resetLapCount() {
+		if (!this.canAlter()) {
+			return;
+		}
+
 		this.laps.clear();
 		this.lapCount = 0;
 
@@ -99,14 +108,20 @@ public class Session {
 		return this.status == SessionStatus.IN_PROGRESS;
 	}
 
+	public boolean isNotStarted() {
+		return this.status == SessionStatus.NOT_STARTED;
+	}
+
 	// TODO for debugging - delete
 	public String debugLaps() {
 		StringBuilder res = new StringBuilder();
-		res.append("Session | lapsPerMile: " + this.lapsPerMileRate + " | " + this.interval.toString() + "\n");
-		for(int i = 0; i < laps.size(); i++)  {
-			Lap lap = laps.get(i);
-			res.append("Lap " + String.valueOf(i) + " | "
-					+ "start: " + lap.getInterval().toString() + "\n");
+		if (!this.isNotStarted()) {
+			res.append("Session | lapsPerMile: " + this.lapsPerMileRate + " | " + this.interval.toString() + "\n");
+			for (int i = 0; i < laps.size(); i++) {
+				Lap lap = laps.get(i);
+				res.append("Lap " + String.valueOf(i) + " | "
+						+ "start: " + lap.getInterval().toString() + "\n");
+			}
 		}
 
 		return res.toString();

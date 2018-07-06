@@ -76,6 +76,9 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 
 		// Initialize timezone
 		AndroidThreeTen.init(this);
+
+		// Initialize "empty" session
+		this.session = new Session();
 	}
 
 	/**
@@ -179,13 +182,13 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 */
 	public int getLapCount() {
 		printDebugLaps();
-		return this.session.getLapCount();
+		return getSession().getLapCount();
 	}
 
 	// TODO for debugging - delete
 	private void printDebugLaps() {
 		TextView textView = (TextView)findViewById(R.id.debugBox);
-		textView.setText(this.session.debugLaps());
+		textView.setText(getSession().debugLaps());
 	}
 
 	/**
@@ -228,7 +231,7 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 */
 	public void initializeSession(Instant start, Double lapsPerMileRate) {
 		// Initialize current Session with lapsPerMileRate to start a Session
-		this.session = new Session(start, lapsPerMileRate);
+		getSession().initialize(start, lapsPerMileRate);
 	}
 
 	/**
@@ -239,14 +242,12 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
 	 */
 	public SessionStatus startSession(Instant start, Double lapsPerMileRate) {
-		if (this.session == null) {
+		if (getSession().isNotStarted()) {
 			initializeSession(start, lapsPerMileRate);
 			return SessionStatus.NOT_STARTED;
 		}
 
-		// TODO revamp this to avoid null checking and rather make an empty Session object that handles some initialization within itself
-
-		return this.session.startSession();
+		return getSession().startSession();
 	}
 
 	/**
@@ -255,11 +256,11 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 	 * @return SessionStatus - the previous status for the session (for the UI to use to gauge state).
 	 */
 	public SessionStatus endSession(Instant end) {
-		if (this.session == null) {
+		if (getSession().isNotStarted()) {
 			return SessionStatus.NOT_STARTED;
 		}
 
-		return this.session.endSession(end);
+		return getSession().endSession(end);
 	}
 
 	public Session getSession() {

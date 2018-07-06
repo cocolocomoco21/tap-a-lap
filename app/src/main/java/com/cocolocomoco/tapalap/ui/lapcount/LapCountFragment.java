@@ -35,7 +35,7 @@ public class LapCountFragment extends Fragment {
 			if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
 				LapCountActivity activity = getLapCountActivity();
 
-				if (activity.getSession() == null) {
+				if (activity.getSession().isNotStarted()) {
 					// Notify user they must start Session, move them to Session page
 					Toast.makeText(activity, R.string.session_start_required_toast, Toast.LENGTH_SHORT).show();
 					activity.showSessionFragment();
