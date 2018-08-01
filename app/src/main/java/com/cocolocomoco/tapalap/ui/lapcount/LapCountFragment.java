@@ -77,17 +77,6 @@ public class LapCountFragment extends Fragment {
 		textView.setText(String.valueOf(activity.getLapCount()));
 	}
 
-	/**
-	 * onClick handler for Reset button.
-	 */
-	public void onResetClick(View view) {
-		LapCountActivity activity = getLapCountActivity();
-		activity.getCurrentSession().resetLapCount();
-
-		TextView textView = (TextView)activity.findViewById(R.id.lapCountDisplay);
-		textView.setText(String.valueOf(activity.getLapCount()));
-	}
-
 	private LapCountActivity getLapCountActivity() {
 		return (LapCountActivity) this.getActivity();
 	}

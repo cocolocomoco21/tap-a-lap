@@ -91,19 +91,6 @@ public class Session {
 		newCurrentLap.unsetEnd();
 	}
 
-	public void resetLapCount() {
-		if (!this.canAlter()) {
-			return;
-		}
-
-		this.laps.clear();
-		this.lapCount = 0;
-
-		// Add first lap
-		Lap firstLap = new Lap(Instant.now());
-		this.laps.add(firstLap);
-	}
-
 	private boolean canAlter() {
 		return this.status == SessionStatus.IN_PROGRESS;
 	}

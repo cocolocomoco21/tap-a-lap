@@ -199,13 +199,6 @@ public class LapCountActivity extends AppCompatActivity implements SharedPrefere
 		this.lapCountFragment.onDecreaseClick(view);
 	}
 
-	/**
-	 * onClick handler for Reset button in LapCountFragment.
-	 */
-	public void onResetClick(View view) {
-		this.lapCountFragment.onResetClick(view);
-	}
-
 
 	/**
 	 * onClick handler for Start Session button in SessionFragment.

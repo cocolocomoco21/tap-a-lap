@@ -12,7 +12,6 @@
     <string name="completed_text">Completed</string>
     <string name="laps_text">Laps</string>
     <string name="decrease_button_text">-</string>
-    <string name="reset_button_text">Reset</string>
 
     <!--Options menu-->
     <string name="settings_option">Settings</string>
@@ -25,7 +24,6 @@
         \n
         \nAlso, you can:
         \n\t- Subtract laps with <b>\u2014</b>.
-        \n\t- Reset your count with <b>Reset</b>.
         \n\t- Swipe right to access the <b>Stats</b> page.
         \n
         \nHappy lapping!\n
